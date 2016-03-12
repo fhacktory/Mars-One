@@ -1,0 +1,16 @@
+- Follow the TRAKER Mission 1 model to obtain the Step1
+- Add the four double spikes to acheive Step2
+- Add the two 5 bars to make steps for the core module and allow it to use battery (Step3)
+- Made the follow step twice in mirror
+	- Step4
+	- Step5
+	- Step6
+- Add the two part symetrically and lock them with the little grey thing (Step7)
+- Place the core black (Step8)
+- Add a double spike in each branch (Step9)
+- Block the added spickes in the core block (Step10)
+- With a double red spick, defitly lock each branch (Step11)
+- Made two L modules in mirror (Step12)
+- Place the two L blocks on the branch (Step13)
+- Lock the L blocks with a H spike (Step 14)
+- You can block your iPhone with the 360 lence in the created module (FinalSteps)
