@@ -1,4 +1,5 @@
 #!/usr/bin/python
+# -*-coding:Latin-1 -*
 #Script de communication entre le module EV3 et l'app
 #Communication Bluetooth
 
@@ -23,45 +24,10 @@ mr = LargeMotor(OUTPUT_C)
 assert ml.connected
 assert mr.connected
 
-
-def forward():
-    """
-    Start both motors. `run-direct` command will allow to vary motor
-    performance on the fly by adjusting `duty_cycle_sp` attribute.
-    """
-    ml.duty_cycle_sp=100
-    mr.duty_cycle_sp=100
-    ml.run_direct()
-    mr.run_direct()
-
-
-def backward():
-
-    ml.duty_cycle_sp=-100
-    mr.duty_cycle_sp=-100
-    ml.run_direct()
-    mr.run_direct()
-
-def stop():
-	ml.stop()
-	mr.stop()
-
-def left():
-	stop()
-	#ml.duty_cycle_sp=-40
-	#mr.duty_cycle_sp=40
-	ml.run_timed(duty_cycle_sp=-40, time_sp=500)
-	mr.run_timed(duty_cycle_sp=40, time_sp=500)
-	time.sleep(0.500)
-
-def right():
-	stop()
-	#ml.duty_cycle_sp=-40
-	#mr.duty_cycle_sp=40
-	ml.run_timed(duty_cycle_sp=40, time_sp=500)
-	mr.run_timed(duty_cycle_sp=-40, time_sp=500)
-	time.sleep(0.500)
-
+ml.duty_cycle_sp=0
+mr.duty_cycle_sp=0
+ml.run_direct()
+mr.run_direct()
 
 print "Socket opened waiting for client"
 client_sock,address = server_sock.accept()
@@ -70,24 +36,25 @@ print "Accepted connection from ",address
 
 
 while 1:
-    data = client_sock.recv(1024)
-    print "received [%s]" % data
-    if data == 'q':
-    	stop()
-    	break
-    elif data=='f':
-    	print "go forward"
-    	forward()
-    elif data=='b':
-    	backward()
-    elif data=='l':
-    	left()
-    elif data=='r' :
-    	right()
-    elif data=='x':
-    	stop()
+    try :
+    	data = client_sock.recv(1024)
+    	print "received [%s]" % data
+    except :
+    	#Le client a fermé son socket
+    	print "Client disconnected, waiting for new one"
+    	client_sock.close()
+    	client_sock,address = server_sock.accept()
+    	print "Accepted connection from ",address
+    
+    cmd=data.split(';')
+    try :
+    	if cmd[0]=='m':
+    		ml.duty_cycle_sp=int(cmd[1])
+    		mr.duty_cycle_sp=int(cmd[2])
+    #Si erreur commande
+    except: 
+    	server_sock.send("Error : CMD_ERROR")    
 
-#server_sock.send(u"Data Received")
+#server_sock.send(u"Data Received"
 
-client_sock.close()
 server_sock.close()
