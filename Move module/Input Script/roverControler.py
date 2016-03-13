@@ -1,5 +1,5 @@
-from getch import getch 
-import lightblue, time, pygame
+#from getch import getch 
+import bluetooth, time, pygame
 from pygame.locals import *
 
 bd_addr = "00:17:EC:03:19:C6"
@@ -7,7 +7,9 @@ port = 1
 
 pygame.init()
 
-sock=lightblue.socket()
+#sock=lightblue.socket()
+#sock.connect((bd_addr, port))
+sock=bluetooth.BluetoothSocket( bluetooth.RFCOMM )
 sock.connect((bd_addr, port))
 
 print 'LETS GO !'
