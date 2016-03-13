@@ -12,7 +12,6 @@ print "starting programm"
 
 server_sock=bluetooth.BluetoothSocket( bluetooth.RFCOMM )
 
-time.sleep(0.1)
 port = 1
 server_sock.bind(("",port))
 server_sock.listen(1)
@@ -39,6 +38,7 @@ while 1:
     try :
     	data = client_sock.recv(1024)
     	print "received [%s]" % data
+    	cmd=data.split(';')
     except :
     	#Le client a fermé son socket
     	print "Client disconnected, waiting for new one"
@@ -46,14 +46,14 @@ while 1:
     	client_sock,address = server_sock.accept()
     	print "Accepted connection from ",address
     
-    cmd=data.split(';')
     try :
     	if cmd[0]=='m':
     		ml.duty_cycle_sp=int(cmd[1])
     		mr.duty_cycle_sp=int(cmd[2])
     #Si erreur commande
-    except: 
-    	server_sock.send("Error : CMD_ERROR")    
+    except:
+    	print "erreur" 
+    	#server_sock.send("Error : CMD_ERROR")    
 
 #server_sock.send(u"Data Received"
 
