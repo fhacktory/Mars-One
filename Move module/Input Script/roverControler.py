@@ -1,38 +1,55 @@
 from getch import getch 
-import lightblue
+import lightblue, time, pygame
+from pygame.locals import *
 
 bd_addr = "00:17:EC:03:19:C6"
-
 port = 1
+
+pygame.init()
 
 sock=lightblue.socket()
 sock.connect((bd_addr, port))
 
-sock.send("hello!")
 print 'LETS GO !'
 
 while 1:
-	msg = 'empty'
+	left = 0
+	right = 0
 	quit = False
-	key = getch()
-	if key == 'z':
-		msg = 'f'
-	elif key == 's':
-		msg = 'b'
-	elif key == 'q':
-		msg = 'l'
-	elif key == 'd':
-		msg = 'r'
-	elif key == 'x' :
-		msg = 'x'
-	elif key == 'p':
-		msg = 'q'
+	
+	pygame.event.pump()
+	keys = pygame.key.get_pressed()
+
+	if keys[K_p]:
 		quit = True
-		
-	if msg != 'empty':
-		sock.send(msg)
-		print msg
+	elif keys[K_z] | keys[K_s]:
+	    left = 100
+	    right = 100
+	    if keys[K_q]:
+	    	left -= 50
+	    if keys[K_d]:
+	    	right -= 50
+	    if keys[K_s]:
+	    	left *= -1
+	    	right *= -1
+	elif keys[K_q] & keys[K_d]:
+		left = 0
+		right = 0
+	elif keys[K_q]:
+		left = -100
+		right = 100
+	elif keys[K_d]:
+		left = 100
+		right = -100
+
+
+	msg = 'm' +  ';' + str(left) + ';' + str(right)	
+	sock.send(msg)
+	print msg
 
 	if quit:
+		socket.send('q')
 		sock.close()
 		break
+
+	time.sleep(0.1)
