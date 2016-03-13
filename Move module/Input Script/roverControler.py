@@ -2,9 +2,10 @@ from sys import platform as _platform
 import time, pygame
 from pygame.locals import *
 
+
 if _platform == 'darwin':
 	import lightblue
-elif _platform == 'linux':
+elif _platform == 'linux2':
 	import bluetooth
 
 
@@ -16,7 +17,7 @@ pygame.init()
 if _platform == 'darwin':
 	sock=lightblue.socket()
 	sock.connect((bd_addr, port))
-elif _platform == 'linux':
+elif _platform == 'linux2':
 	sock=bluetooth.BluetoothSocket( bluetooth.RFCOMM )
 	sock.connect((bd_addr, port))
 	screen = pygame.display.set_mode((640, 480))
