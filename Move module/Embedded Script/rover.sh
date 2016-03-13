@@ -9,13 +9,12 @@
 ### END INIT INFO
 #!/bin/sh
 
-# le nom du service
 SERVICE_NAME=rover
-# le répertoire où se trouvent les exécutables du service
+#exe directory
 SERVICE_DIRECTORY=/home/robot/
-# le nom du script de démarrage du service
+# start script name
 SERVICE_STARTUP_SCRIPT=startup.sh
-# le nom du script d'arrêt du service
+# stop script name
 SERVICE_SHUTDOWN_SCRIPT=shutdown.sh
  
 usage()

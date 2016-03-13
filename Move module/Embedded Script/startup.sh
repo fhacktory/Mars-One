@@ -1,5 +1,5 @@
 #!/bin/sh
-#Script demarrage rover dans un screen
+#
 SCREEN_SESSION=rover
 SCREEN=/usr/bin/screen
 GREP=/bin/grep

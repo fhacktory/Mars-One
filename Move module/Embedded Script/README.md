@@ -1,7 +1,12 @@
 #README
 
-startup.sh et shutdown.sh à placer dans le répértoire de script.py
+Setup : 
 
-rover.sh a placer dans /etc/init.d
-Donner les droits : chmod a+x /etc/init.d/rover.sh
-Executer au démarrage : sudo /usr/sbin/update-rc.d rover.sh defaults
+put startup.sh, shutdown.sh and script.py in the same rep.
+
+Put rover.sh in /etc/init.d
+give it rights : sudo chmod a+x /etc/init.d/rover.sh
+Launch at startup : sudo /usr/sbin/update-rc.d rover.sh defaults
+
+
+FIX ME : script auto start at boot doesn't work (neither with update-rc nor with rc.local)
