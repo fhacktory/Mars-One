@@ -70,16 +70,22 @@ print 'LETS GO !'
 while isRunning & isConnect:
 
     try:
-        data = sock.recv(1024)
-        print data
+    	data = sock.recv(1024)
+    	#print data
+    	tmp=data.split[';']  
+    	#DrawPosition(tmp[0], tmp[1])
+    	print tmp[0]
+    	print tmp[1]	      
     except :
         print 'No data available'
 
+    
+    
     left = 0
     right = 0
     
     pygame.event.pump()
-    keys = pygame.key.get_pressed()
+    keys = pygame.key.get_pressed()	
 
     if keys[K_p]:
         isRunning = False

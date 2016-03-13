@@ -79,10 +79,12 @@ while 1:
 		motor_right.position=0
 		motor_left.position=0
 
-	client_sock.sendto(str(motor_left.position)+'\n',address)
-	client_sock.sendto(str(motor_right.position)+'\n',address)
+	client_sock.sendto(str(motor_left.position)+';'+str(motor_right.position),address)
+	#client_sock.sendto(str(motor_right.position)+'\n',address)
 	motor_right.position=0
-	motor_left.position=0	
+	motor_left.position=0
+	print 	motor_right.position
+	print   motor_left.position
 
 	try :
 		if cmd[0]=='m':
