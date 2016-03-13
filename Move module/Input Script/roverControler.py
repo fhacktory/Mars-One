@@ -1,16 +1,27 @@
-#from getch import getch 
-import bluetooth, time, pygame
+from sys import platform as _platform
+import time, pygame
 from pygame.locals import *
+
+if _platform == 'darwin':
+	import lightblue
+elif _platform == 'linux':
+	import bluetooth
+
 
 bd_addr = "00:17:EC:03:19:C6"
 port = 1
 
 pygame.init()
 
-#sock=lightblue.socket()
-#sock.connect((bd_addr, port))
-sock=bluetooth.BluetoothSocket( bluetooth.RFCOMM )
-sock.connect((bd_addr, port))
+if _platform == 'darwin':
+	sock=lightblue.socket()
+	sock.connect((bd_addr, port))
+elif _platform == 'linux':
+	sock=bluetooth.BluetoothSocket( bluetooth.RFCOMM )
+	sock.connect((bd_addr, port))
+	screen = pygame.display.set_mode((640, 480))
+	pygame.display.set_caption('Pygame Caption')
+	pygame.mouse.set_visible(0)
 
 print 'LETS GO !'
 
