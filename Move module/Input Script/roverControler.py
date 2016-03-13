@@ -1,5 +1,5 @@
 from sys import platform as _platform
-import time, pygame
+import time, pygame, socket, errno, math
 from pygame.locals import *
 
 #import bluetooth for mac or linux
@@ -12,7 +12,36 @@ elif _platform == 'linux2':
 bd_addr = "00:17:EC:03:19:C6"
 port = 1
 
+WHITE = (255, 255, 255)
+
+x = 250
+y = 250
+alpha = 0
+
 isRunning = True
+
+def DrawPosition(left, right):
+	CIRCONFERENCE = 10
+	NBR_PAS_TOUR = 360
+	B = 50
+
+	L1 = right/NBR_PAS_TOUR * CIRCONFERENCE
+	L2 = left/NBR_PAS_TOUR * CIRCONFERENCE
+
+	R = B * L1 / (L2 - L1)
+	deltaAlpha = L1 / R
+	distance = math.sin(deltaAlpha) * (R + B/2)
+
+	alpha += deltaAlpha
+
+	deltaX = math.sin(alpha) * distance
+	deltaY = math.cos(alpha) * distance
+
+	#Draw line
+	pygame.draw.line(screen, WHITE, (x, y), (x + deltaX, y + deltaY), 5)
+	x += deltaX
+	y += deltaY
+	pygame.display.flip()
 
 #init socket
 if _platform == 'darwin':
@@ -22,13 +51,14 @@ elif _platform == 'linux2':
 
 #init pygame
 pygame.init()
-screen = pygame.display.set_mode((640, 480))
+screen = pygame.display.set_mode([500, 500])
 pygame.display.set_caption('Pygame Caption')
-pygame.mouse.set_visible(0)
+screen.fill((0,0,0))
 
 #connect socket
 try :
 	sock.connect((bd_addr, port))
+	sock.setblocking(0)
 	isConnect = True
 except :
 	# Cannot connect the rover
@@ -38,20 +68,24 @@ except :
 print 'LETS GO !'
 
 while isRunning & isConnect:
+
 	left = 0
 	right = 0
+
+	dist = 0
 	
 	pygame.event.pump()
 	keys = pygame.key.get_pressed()
-	print keys
 
 	if keys[K_p]:
 		isRunning = False
 	elif keys[K_z] | keys[K_s] | keys[K_UP] | keys[K_DOWN]:
 	    left = 100
 	    right = 100
+	    dist = 10
 	    if keys[K_q] | keys[K_LEFT]:
 	    	left -= 50
+	    	alpha = 
 	    if keys[K_d] | keys[K_RIGHT]:
 	    	right -= 50
 	    if keys[K_s] | keys[K_DOWN]:
@@ -74,7 +108,7 @@ while isRunning & isConnect:
 	except :
 		print "Connection lost"
 		isConnect = False
-	print msg
+	#print msg
 
 	if not isRunning:
 		try :
