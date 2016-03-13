@@ -1,4 +1,3 @@
-from getch import getch 
 import lightblue, time, pygame
 from pygame.locals import *
 
@@ -12,16 +11,17 @@ sock.connect((bd_addr, port))
 
 print 'LETS GO !'
 
-while 1:
+isRunning = True
+
+while isRunning:
 	left = 0
 	right = 0
-	quit = False
 	
 	pygame.event.pump()
 	keys = pygame.key.get_pressed()
 
 	if keys[K_p]:
-		quit = True
+		isRunning = False
 	elif keys[K_z] | keys[K_s]:
 	    left = 100
 	    right = 100
@@ -47,9 +47,8 @@ while 1:
 	sock.send(msg)
 	print msg
 
-	if quit:
-		socket.send('q')
+	if not isRunning:
+		sock.send('q')
 		sock.close()
-		break
 
 	time.sleep(0.1)
