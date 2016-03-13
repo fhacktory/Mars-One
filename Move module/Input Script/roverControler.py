@@ -34,26 +34,27 @@ while isRunning:
 	
 	pygame.event.pump()
 	keys = pygame.key.get_pressed()
+	print keys
 
 	if keys[K_p]:
 		isRunning = False
-	elif keys[K_z] | keys[K_s]:
+	elif keys[K_z] | keys[K_s] | keys[K_UP] | keys[K_DOWN]:
 	    left = 100
 	    right = 100
-	    if keys[K_q]:
+	    if keys[K_q] | keys[K_LEFT]:
 	    	left -= 50
-	    if keys[K_d]:
+	    if keys[K_d] | keys[K_RIGHT]:
 	    	right -= 50
-	    if keys[K_s]:
+	    if keys[K_s] | keys[K_DOWN]:
 	    	left *= -1
 	    	right *= -1
 	elif keys[K_q] & keys[K_d]:
 		left = 0
 		right = 0
-	elif keys[K_q]:
+	elif keys[K_q] | keys[K_LEFT]:
 		left = -100
 		right = 100
-	elif keys[K_d]:
+	elif keys[K_d] | keys[K_RIGHT]:
 		left = 100
 		right = -100
 
