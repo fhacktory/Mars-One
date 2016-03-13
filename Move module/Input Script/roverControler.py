@@ -12,23 +12,30 @@ elif _platform == 'linux2':
 bd_addr = "00:17:EC:03:19:C6"
 port = 1
 
+isRunning = True
+
 pygame.init()
 
 if _platform == 'darwin':
 	sock=lightblue.socket()
-	sock.connect((bd_addr, port))
 elif _platform == 'linux2':
 	sock=bluetooth.BluetoothSocket( bluetooth.RFCOMM )
+
+screen = pygame.display.set_mode((640, 480))
+pygame.display.set_caption('Pygame Caption')
+pygame.mouse.set_visible(0)
+
+try :
 	sock.connect((bd_addr, port))
-	screen = pygame.display.set_mode((640, 480))
-	pygame.display.set_caption('Pygame Caption')
-	pygame.mouse.set_visible(0)
+	isConnect = True
+except :
+	# Cannot connect the rover
+	print "Impossible to connect the Rover. Restart script"
+	isConnect = False
 
 print 'LETS GO !'
 
-isRunning = True
-
-while isRunning:
+while isRunning & isConnect:
 	left = 0
 	right = 0
 	
@@ -60,11 +67,21 @@ while isRunning:
 
 
 	msg = 'm' +  ';' + str(left) + ';' + str(right)	
-	sock.send(msg)
+	try :
+		sock.send(msg)
+	except :
+		print "Connection lost"
+		isConnect = False
 	print msg
 
 	if not isRunning:
-		sock.send('q')
-		sock.close()
+		try :
+			sock.send('q')
+		except :
+			print "Connection lost"
+			isConnect = False
 
+	# Loop frequency
 	time.sleep(0.1)
+
+sock.close()
