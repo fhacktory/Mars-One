@@ -2,29 +2,31 @@ from sys import platform as _platform
 import time, pygame
 from pygame.locals import *
 
-
+#import bluetooth for mac or linux
 if _platform == 'darwin':
 	import lightblue
 elif _platform == 'linux2':
 	import bluetooth
 
-
+#bluetooth constantes
 bd_addr = "00:17:EC:03:19:C6"
 port = 1
 
 isRunning = True
 
-pygame.init()
-
+#init socket
 if _platform == 'darwin':
 	sock=lightblue.socket()
 elif _platform == 'linux2':
 	sock=bluetooth.BluetoothSocket( bluetooth.RFCOMM )
 
+#init pygame
+pygame.init()
 screen = pygame.display.set_mode((640, 480))
 pygame.display.set_caption('Pygame Caption')
 pygame.mouse.set_visible(0)
 
+#connect socket
 try :
 	sock.connect((bd_addr, port))
 	isConnect = True
