@@ -1,6 +1,15 @@
-# Mars-One
-Robot piloté à distance via une interface web en rendu VR
 
+# Mars One <img src="http://www.lasdepique.fr/mars-one/noun_269594_cc-cut.png" width="100" align="center">
+
+Robot avec caméra embarquée piloté à distance via une manette et rendu dans un casque de réalité virtuelle.
+
+[![Prototype Mars One](http://www.lasdepique.fr/mars-one/IMG_6432-compressee.jpg)](http://www.lasdepique.fr/mars-one/IMG_6432-compressee.jpg)
+
+## Objectif
+
+Reproduire l'experience de pilotage d'un rover sur Mars. Le rover doit être placé dans un environnement ressemblant au sol martien. La vidéo transmise par le rover est traitée avec un filtre rouge/orangé pour donner l'impression de l'atmosphère martienne.
+
+Projet réalisé en 24 heures par 4 personnes dans le cadre du hackathon [fHacktory](http://www.fhacktory.com/).
 
 ## Présentation de la team
 
@@ -66,7 +75,7 @@ Steam controller pour l’interface homme machine.
 
 ## Technologies utilisées VR :
 BubbleScope, lentille permettant la prise de photo et video à 360 degrés
-Fisheye pou
+ou Lentille Fisheye pour iPhone à la place du BubbleScope pour avoir une image moins large mais de meilleur qualité
 Unity webcamTexture pour la prise de photo
 Unity pour le rendu VR
 NodeJS pour l’échange de données entre smartphone embarqué sur le rover et celui embarqué dans le casque VR
@@ -82,3 +91,6 @@ Et tellement plein d’autres trucs…
 ## Bonus :
 3 parties Forza en écran splité dont une de 3 tours sur un circuit japonais de plus de 13 Km/tour : 30 minutes de jeu.
 130,680 Sextillions de cookies cuisinés sur CookieClicker
+
+## Crédits images
+<img src="http://www.lasdepique.fr/mars-one/noun_269594_cc.png" width="300">
